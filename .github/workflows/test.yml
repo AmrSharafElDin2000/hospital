@@ -24,8 +24,9 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install MySQL Client
-        run: sudo apt-get install -y mysql-client
+      - name: Install Dependencies
+        run: |
+          pip install mysql-connector-python
 
       - name: Wait for MySQL
         run: |
