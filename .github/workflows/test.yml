@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mysql:8.0  # Use MySQL 8
+        image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: 1234  # ✅ Match your local credentials
+          MYSQL_ROOT_PASSWORD: 1234
           MYSQL_DATABASE: hospital_system
         ports:
           - 3306:3306
@@ -32,7 +32,15 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install mysql-connector-python  # ✅ Ensure MySQL connector is installed
+          pip install mysql-connector-python  # Ensure MySQL connector is installed
+
+      - name: Initialize Database  # 🛠️ NEW STEP!
+        env:
+          DB_HOST: localhost
+          DB_USER: root
+          DB_PASSWORD: 1234
+          DB_NAME: hospital_system
+        run: python initialize_db.py
 
       - name: Run tests
         env:
