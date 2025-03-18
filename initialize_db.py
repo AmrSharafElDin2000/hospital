@@ -9,21 +9,13 @@ DB_CONFIG = {
 }
 
 TABLES = {
-    "employees": """
-        CREATE TABLE IF NOT EXISTS employees (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
-            email VARCHAR(255) UNIQUE NOT NULL,
-            salary DECIMAL(10,2) NOT NULL  -- ✅ Added salary column
-        );
-    """,
     "patients": """
         CREATE TABLE IF NOT EXISTS patients (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
             age INT NOT NULL,
-            phone_number VARCHAR(20) NOT NULL,  -- ✅ Added phone_number column
-            diagnosis TEXT
+            phone_number VARCHAR(20) NOT NULL,
+            disease TEXT NOT NULL  -- ✅ Added missing column
         );
     """
 }
@@ -31,11 +23,11 @@ TABLES = {
 def initialize_database():
     conn = mysql.connector.connect(**DB_CONFIG)
     cursor = conn.cursor()
-    
+
     for table, query in TABLES.items():
         print(f"Creating/updating table: {table}")
         cursor.execute(query)
-    
+
     conn.commit()
     cursor.close()
     conn.close()
