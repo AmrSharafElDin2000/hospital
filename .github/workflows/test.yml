@@ -49,3 +49,13 @@ jobs:
           DB_PASSWORD: 1234
           DB_NAME: hospital_system
         run: python -m unittest discover tests -v
+        
+      - name: Drop and Recreate Database
+        env:
+          DB_HOST: localhost
+          DB_USER: root
+          DB_PASSWORD: 1234
+          DB_NAME: hospital_system
+        run: |
+          mysql -h $DB_HOST -u $DB_USER -p$DB_PASSWORD -e "DROP DATABASE IF EXISTS $DB_NAME; CREATE DATABASE $DB_NAME;"
+          python initialize_db.py

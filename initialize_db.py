@@ -14,7 +14,7 @@ TABLES = {
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
             email VARCHAR(255) UNIQUE NOT NULL,
-            position VARCHAR(100) NOT NULL
+            salary DECIMAL(10,2) NOT NULL  -- ✅ Added salary column
         );
     """,
     "patients": """
@@ -22,6 +22,7 @@ TABLES = {
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
             age INT NOT NULL,
+            phone_number VARCHAR(20) NOT NULL,  -- ✅ Added phone_number column
             diagnosis TEXT
         );
     """
@@ -32,7 +33,7 @@ def initialize_database():
     cursor = conn.cursor()
     
     for table, query in TABLES.items():
-        print(f"Creating table: {table}")
+        print(f"Creating/updating table: {table}")
         cursor.execute(query)
     
     conn.commit()
