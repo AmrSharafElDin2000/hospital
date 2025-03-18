@@ -1,0 +1,1 @@
+"pytest"   # Add pytest as an example dependency
